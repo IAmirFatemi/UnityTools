@@ -4,6 +4,10 @@ A collection of useful tools and extensions for Unity projects. This repository 
 
 ---
 
+## 🧰 Where Are the Tools?
+Each tool is isolated in its own dedicated branch to keep the codebase clean and manageable.
+You can explore and use a specific tool by switching to its corresponding branch.
+
 ## 🚀 Quick Start
 
 - This repo has **protected branches**; no direct pushes are allowed.
