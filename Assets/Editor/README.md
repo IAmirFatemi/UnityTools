@@ -1,78 +1,117 @@
-# 🧹 UnityTools – Missing Scripts Cleaner
+# 🧩 UnityTools – Sprite Atlas Builder
 
-A custom Unity Editor utility that helps you find and remove **missing script references** from scenes and prefabs, keeping your project clean and error-free.
+A custom Unity Editor utility that lets you quickly generate Sprite Atlases from selected GameObjects or Sprites, with full control over packing, texture settings, and platform-specific compression overrides.
 
 ---
 
 ## 🚀 Features
 
-* Clean missing scripts from:
+Create Sprite Atlases from:
 
-  * ✅ Selected or all **scenes**
-  * ✅ Prefabs in **specific folders** (optionally including subfolders)
-* Filter prefabs and scenes using a **search query**
-* **Bulk-select** prefabs and scenes for cleaning
-* Automatically generates a detailed **log file**
-* Clean and modern **EditorWindow UI**
-* Safe to use: changes are only made to selected items
+✅ A selected GameObject
+✅ All SpriteRenderers inside its children
+✅ All UI Images inside its children
+✅ A single selected Sprite
+
+Atlas configuration options:
+
+* Tight Packing toggle
+* Allow Rotation toggle
+* Padding control
+* Block Offset control
+
+Texture configuration options:
+
+* Read/Write toggle
+* Generate MipMaps toggle
+* sRGB Color Space toggle
+* Filter Mode selection
+
+Platform Overrides:
+
+* Add any number of platform override entries
+* Choose platform (BuildTargetGroup)
+* Enable/disable override
+* Set Max Texture Size
+* Set Texture Format
+* Set Compression Quality
+* Remove individual overrides
+* Clear all overrides
+* Collapsible section for organized UI
+
+Asset handling:
+
+* Set custom atlas name
+* Set save folder path
+* Folder picker support
+* Auto-create default folder if the path is invalid
+* Creates or replaces .spriteatlas assets
+* Automatically adds collected sprites to the atlas
+
+Clean, structured Editor UI with collapsible groups and validation.
 
 ---
 
 ## 📋 How to Use
 
-1. Place the script inside the `Assets/Editor` folder in your Unity project.
-2. Open or reload Unity to compile the script.
-3. In Unity Editor, go to: `Tools > Missing Scripts Cleaner`.
-4. In the window, you can:
+1. Place the script inside your **Assets/Editor** directory.
+2. Open or reload Unity to compile it.
+3. Integrate the tool into an EditorWindow and call `DrawUI()` (or use your existing menu integration).
+4. In the tool window, you can:
 
-   * Select scenes or folders you want to scan.
-   * Use the toggle to **include subfolders** for prefabs.
-   * **Search** for specific prefabs or scenes.
-   * Review and select individual items before cleaning.
-   * Click `Clean` to remove all missing scripts from selected objects.
+   * Select a GameObject or Sprite
+   * Configure packing settings
+   * Configure texture settings
+   * Add or remove platform overrides
+   * Choose atlas name and save path
+   * Click **Create Sprite Atlas** to generate the asset
+
+The tool will create a new `.spriteatlas` file and apply all specified settings.
 
 ---
 
 ## ⚠️ Important Notes
 
-* The tool does **not automatically clean all assets** — you must choose scenes/prefabs manually, unless you enable full project cleaning.
-* Always ensure you’ve committed or backed up changes before running bulk cleanup.
-* Cleaning scenes will open and save them via `EditorSceneManager`, so **unsaved changes may be lost**.
+* Only sprites collected from the selected object will be added.
+* The tool will create the **SpriteAtlases** folder automatically if needed.
+* If an atlas with the same name exists, it will be replaced.
+* No runtime behavior is affected, and all operations run strictly inside the Unity Editor.
 
 ---
 
-## 📁 Log Output
+## 📁 Output
 
-* Every cleaning operation is logged to:
+The tool generates:
 
-  ```
-  Assets/MissingScriptsLog.txt
-  ```
-* You can review the log inside the window itself or open it in any text editor.
+`YourPath/YourAtlasName.spriteatlas`
+
+The atlas includes all collected sprites and the full configuration defined in the UI.
 
 ---
 
 ## 🧠 Behind the Scenes
 
-* Uses Unity’s `GameObjectUtility.RemoveMonoBehavioursWithMissingScript` to safely remove missing scripts.
-* Integrates with Unity’s `AssetDatabase` and `EditorSceneManager` for scene and prefab manipulation.
-* All operations are performed in the Editor — no runtime impact.
+The tool uses:
+
+* `SpriteAtlas`, `SpriteAtlasPackingSettings`, `SpriteAtlasTextureSettings`
+* `TextureImporterPlatformSettings`
+* Unity’s `AssetDatabase` for asset creation and updating
+* Automatic sprite collection from `SpriteRenderer` and `UI.Image` components
+
+All operations run entirely within the Unity Editor and do not affect runtime performance.
 
 ---
 
 ## 🤝 Contributions & Support
 
-* Issues and feature requests are welcome on GitHub.
-* Feel free to fork and improve the tool — PRs are appreciated!
+Contributions, issues, and feature requests are welcome.
+Feel free to fork the tool and enhance it for your pipeline.
 
 ---
 
 ## 🧰 Example Use Cases
 
-* Cleaning corrupted prefabs imported from external tools
-* Preparing scenes for production by removing broken references
-* Keeping legacy projects tidy as scripts are deprecated
-
----
-
-*UnityTools © 2025 – Clean Code, Clean Projects*
+* Building optimized UI atlases
+* Organizing sprites for complex UI screens
+* Preparing platform-specific atlases for mobile
+* Automating the atlas creation workflow for designers
